@@ -1,4 +1,4 @@
-package io.github.samleticias.domain.repositorio;
+package io.github.samleticias.domain.repository;
 
 import io.github.samleticias.domain.entity.Cliente;
 import org.springframework.data.jpa.repository.JpaRepository;
