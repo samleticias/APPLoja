@@ -16,14 +16,14 @@ public class Pedido {
     private Integer id;
 
     @ManyToOne
-    @Column
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
     @Column(name = "data_pedido")
     private LocalDate dataPedido;
 
-    @Column(name = "total", length = 20, precision = 2)
+    @Column(name = "total", precision = 20, scale = 2)
+    // precision: quantidade de digitos e scale: quantidade de casas decimais
     private BigDecimal total;
 
     @OneToMany(mappedBy = "pedido")
@@ -67,5 +67,14 @@ public class Pedido {
 
     public void setTotal(BigDecimal total) {
         this.total = total;
+    }
+
+    @Override
+    public String toString() {
+        return "Pedido{" +
+                "id=" + id +
+                ", dataPedido=" + dataPedido +
+                ", total=" + total +
+                '}';
     }
 }

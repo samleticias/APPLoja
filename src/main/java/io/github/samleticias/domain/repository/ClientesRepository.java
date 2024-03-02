@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface Clientes extends JpaRepository<Cliente, Integer> {
+public interface ClientesRepository extends JpaRepository<Cliente, Integer> {
     @Query(value = " select * from Cliente c where c.nome like '%:nome%' ", nativeQuery = true)
     List<Cliente> encontrarPorNome( @Param("name") String name );
 
@@ -17,5 +17,10 @@ public interface Clientes extends JpaRepository<Cliente, Integer> {
     void deleteByName(String name);
 
     boolean existsByName(String name);
+
+    @Query(" select c from Cliente c left join fetch c.pedidos where c.id = :id ")
+    // left join: mostra clientes com pedidos ou sem pedidos
+    Cliente findClienteFetchPedidos( @Param("id") Integer id);
+
 }
 

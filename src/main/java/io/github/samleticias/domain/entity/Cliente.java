@@ -20,7 +20,7 @@ public class Cliente {
     public Cliente() {
     }
 
-    @OneToMany(mappedBy = "cliente")
+    @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
     private Set<Pedido> pedidos;
 
     public Set<Pedido> getPedidos() {
@@ -63,4 +63,6 @@ public class Cliente {
                 ", name='" + name + '\'' +
                 '}';
     }
+
+
 }
