@@ -1,11 +1,18 @@
 package io.github.samleticias.domain.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.math.BigDecimal;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+// compilação de getter, setter, constructor required, tostring, equalsandhashcode
 @Entity
 @Table(name = "produto")
+// compilador vai compilar classe e gerar getter e setter no codigo compilado
+// biblioteca do lombok faz isso e plugin serve pra ide reconhecer getters e setters
 public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,27 +25,4 @@ public class Produto {
     @Column(name = "preco_unitario")
     private BigDecimal preco;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public BigDecimal getPreco() {
-        return preco;
-    }
-
-    public void setPreco(BigDecimal preco) {
-        this.preco = preco;
-    }
 }
