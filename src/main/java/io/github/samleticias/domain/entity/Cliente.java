@@ -18,6 +18,9 @@ public class Cliente {
     @Column(name = "nome", length = 100)
     private String name;
 
+    @Column(name = "cpf", length = 11)
+    private String cpf;
+
     public Cliente() {
     }
 
@@ -57,6 +60,15 @@ public class Cliente {
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
 
     @Override
     public String toString() {
