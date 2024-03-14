@@ -24,4 +24,8 @@ public class PedidoController {
         Pedido pedido = service.salvar(dto);
         return pedido.getId();
     }
+
+    public void testarDevTools(){
+        // dev tools melhroa produtividade pq n rpecisa derrubar server para iniciar aplicacao novamente
+    }
 }
