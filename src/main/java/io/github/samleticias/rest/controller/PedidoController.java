@@ -6,7 +6,6 @@ import io.github.samleticias.rest.dto.InformacaoItemPedidoDTO;
 import io.github.samleticias.rest.dto.InformacoesPedidoDTO;
 import io.github.samleticias.rest.dto.PedidoDTO;
 import io.github.samleticias.service.PedidoService;
-import org.springframework.http.HttpStatus;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -15,8 +14,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static com.fasterxml.jackson.databind.type.LogicalType.Collection;
 import static org.springframework.http.HttpStatus.*;
 
 @RestController
@@ -37,12 +34,14 @@ public class PedidoController {
     }
 
     @GetMapping("{id}")
-    public InformacoesPedidoDTO getById(@PathVariable Integer id){
-        return service.obterPedidoCompleto(id)
+    public InformacoesPedidoDTO getById( @PathVariable Integer id ) {
+        return service
+                .obterPedidoCompleto(id)
                 .map(p -> converter(p))
                 .orElseThrow(() ->
                         new ResponseStatusException(NOT_FOUND, "Pedido não encontrado."));
     }
+
     private InformacoesPedidoDTO converter(Pedido pedido){
         return InformacoesPedidoDTO
                 .builder()
@@ -51,6 +50,7 @@ public class PedidoController {
                 .cpf(pedido.getCliente().getCpf())
                 .nomeCliente(pedido.getCliente().getNome())
                 .total(pedido.getTotal())
+                .status(pedido.getStatus().name())
                 .items(converter(pedido.getItens()))
                 .build();
     }
@@ -68,3 +68,7 @@ public class PedidoController {
         ).collect(Collectors.toList());
     }
 }
+
+
+
+

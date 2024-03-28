@@ -4,6 +4,7 @@ import io.github.samleticias.domain.entity.Cliente;
 import io.github.samleticias.domain.entity.ItemPedido;
 import io.github.samleticias.domain.entity.Pedido;
 import io.github.samleticias.domain.entity.Produto;
+import io.github.samleticias.domain.enums.StatusPedido;
 import io.github.samleticias.domain.repository.ClientesRepository;
 import io.github.samleticias.domain.repository.ItemsPedidoRepository;
 import io.github.samleticias.domain.repository.PedidosRepository;
@@ -45,6 +46,7 @@ public class PedidoServiceImpl implements PedidoService {
         pedido.setTotal(dto.getTotal());
         pedido.setDataPedido(LocalDate.now());
         pedido.setCliente(cliente);
+        pedido.setStatus(StatusPedido.REALIZADO);
 
         List<ItemPedido> itemsPedido = converterItems(pedido, dto.getItems());
         pedidosRepository.save(pedido);

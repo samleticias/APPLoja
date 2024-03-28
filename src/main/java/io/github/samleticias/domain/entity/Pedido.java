@@ -1,5 +1,6 @@
 package io.github.samleticias.domain.entity;
 
+import io.github.samleticias.domain.enums.StatusPedido;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,6 +28,10 @@ public class Pedido {
 
     @Column(name = "data_pedido")
     private LocalDate dataPedido;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private StatusPedido status;
 
     @Column(name = "total", precision = 20, scale = 2)
     private BigDecimal total;
