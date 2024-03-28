@@ -1,6 +1,8 @@
 package io.github.samleticias.domain.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -20,9 +22,15 @@ public class Produto {
     private Integer id;
 
     @Column(name = "descricao")
+    @NotEmpty(message = "Campo Descrição é obrigatório.")
     private String descricao;
 
+    // NotEmpty para string: pode ser tanto nula qaunto vazia
+    // NotNull: garantia de que o preço não é nulo
+    // coloacr @Valid em métodos de salvar e de atualizar em Cliente e em Produto p continuar validando
+
     @Column(name = "preco_unitario")
+    @NotNull(message = "Campo Preço é obrigatório.")
     private BigDecimal preco;
 
 }
