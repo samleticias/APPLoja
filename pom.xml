@@ -27,6 +27,14 @@
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
 
+        <!-- Bean Validation -->
+        <!-- Starter Validation -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+
+
         <!-- starter web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

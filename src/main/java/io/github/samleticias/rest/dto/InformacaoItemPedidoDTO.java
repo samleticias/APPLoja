@@ -8,7 +8,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 @Builder
-@Data
+@Data // corresponde a getter e setter
 public class InformacaoItemPedidoDTO {
     private String descricaoProduto;
     private BigDecimal precoUnitario;

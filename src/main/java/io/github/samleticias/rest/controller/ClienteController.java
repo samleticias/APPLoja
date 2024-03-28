@@ -2,6 +2,7 @@ package io.github.samleticias.rest.controller;
 
 import io.github.samleticias.domain.entity.Cliente;
 import io.github.samleticias.domain.repository.ClientesRepository;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;
@@ -31,7 +32,7 @@ public class ClienteController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Cliente save( @RequestBody Cliente cliente ){
+    public Cliente save( @RequestBody @Valid Cliente cliente ){
         return clientesRepository.save(cliente);
     }
 

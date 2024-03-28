@@ -2,6 +2,7 @@ package io.github.samleticias.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,9 @@ public class Cliente {
     private Integer id;
 
     @Column(name = "nome", length = 100)
+    @NotEmpty(message = "Campo nome é obrigatório.")
+    // observa configuração da annotation e verifica se propriedade está nula ou se é string vazia
+    // valida nome que é campo obrigatório
     private String nome;
 
     @Column(name = "cpf", length = 11)
