@@ -2,6 +2,8 @@ package io.github.samleticias.rest.controller;
 
 import io.github.samleticias.domain.entity.ItemPedido;
 import io.github.samleticias.domain.entity.Pedido;
+import io.github.samleticias.domain.enums.StatusPedido;
+import io.github.samleticias.rest.dto.AtualizacaoStatusPedidoDTO;
 import io.github.samleticias.rest.dto.InformacaoItemPedidoDTO;
 import io.github.samleticias.rest.dto.InformacoesPedidoDTO;
 import io.github.samleticias.rest.dto.PedidoDTO;
@@ -31,6 +33,15 @@ public class PedidoController {
         // lógica de salvar, validar, deletar: método dentro do service -> regras de negocio
         Pedido pedido = service.salvar(dto);
         return pedido.getId();
+    }
+
+    @PatchMapping("{id}")
+    @ResponseStatus(NO_CONTENT) // não retorna nada, apenas atualiza
+    public void updateStatus( @PathVariable Integer id,
+                              @RequestBody AtualizacaoStatusPedidoDTO dto){
+        String novoStatus = dto.getNovoStatus();
+        service.atualizaStatus(id, StatusPedido.valueOf(novoStatus));
+        // value of vai associar o status do pedido ao enum cancelado/realizado que é novoStatus
     }
 
     @GetMapping("{id}")

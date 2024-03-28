@@ -1,5 +1,6 @@
 package io.github.samleticias.rest.controller;
 
+import io.github.samleticias.exception.PedidoNaoEncontradoException;
 import io.github.samleticias.exception.RegraNegocioException;
 import io.github.samleticias.rest.ApiErrors;
 import org.springframework.http.HttpStatus;
@@ -14,5 +15,11 @@ public class ApplicationControllerAdvice {
         String mensagemErro = ex.getMessage();
         return new ApiErrors(mensagemErro);
 
+    }
+
+    @ExceptionHandler(PedidoNaoEncontradoException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ApiErrors handlePedidoNotFoundException( PedidoNaoEncontradoException ex ){
+        return new ApiErrors(ex.getMessage());
     }
 }

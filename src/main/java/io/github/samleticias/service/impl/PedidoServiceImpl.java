@@ -9,6 +9,7 @@ import io.github.samleticias.domain.repository.ClientesRepository;
 import io.github.samleticias.domain.repository.ItemsPedidoRepository;
 import io.github.samleticias.domain.repository.PedidosRepository;
 import io.github.samleticias.domain.repository.ProdutosRepository;
+import io.github.samleticias.exception.PedidoNaoEncontradoException;
 import io.github.samleticias.exception.RegraNegocioException;
 import io.github.samleticias.rest.dto.ItemPedidoDTO;
 import io.github.samleticias.rest.dto.PedidoDTO;
@@ -59,6 +60,18 @@ public class PedidoServiceImpl implements PedidoService {
     @Override
     public Optional<Pedido> obterPedidoCompleto(Integer id) {
         return pedidosRepository.findByIdFetchItems(id);
+    }
+
+    @Override
+    @Transactional
+    public void atualizaStatus(Integer id, StatusPedido statusPedido) {
+        pedidosRepository
+                .findById(id)
+                .map(pedido -> {
+                    pedido.setStatus(statusPedido);
+                    return pedidosRepository.save(pedido);
+                    // atualiza status e atualiza pedido
+                }).orElseThrow(() -> new PedidoNaoEncontradoException() );
     }
 
     private List<ItemPedido> converterItems(Pedido pedido, List<ItemPedidoDTO> items){
