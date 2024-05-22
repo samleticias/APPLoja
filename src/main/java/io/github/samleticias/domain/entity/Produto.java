@@ -22,15 +22,15 @@ public class Produto {
     private Integer id;
 
     @Column(name = "descricao")
-    @NotEmpty(message = "Campo Descrição é obrigatório.")
+    @NotEmpty(message = "{campo.descricao.obrigatorio}")
     private String descricao;
 
     // NotEmpty para string: pode ser tanto nula qaunto vazia
     // NotNull: garantia de que o preço não é nulo
-    // coloacr @Valid em métodos de salvar e de atualizar em Cliente e em Produto p continuar validando
+    // colocar @Valid em métodos de salvar e de atualizar em Cliente e em Produto p continuar validando
 
     @Column(name = "preco_unitario")
-    @NotNull(message = "Campo Preço é obrigatório.")
+    @NotNull(message = "{campo.preco.obrigatorio}")
     private BigDecimal preco;
 
 }

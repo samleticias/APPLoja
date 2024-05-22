@@ -23,14 +23,14 @@ public class Cliente {
     private Integer id;
 
     @Column(name = "nome", length = 100)
-    @NotEmpty(message = "Campo nome é obrigatório.")
+    @NotEmpty(message = "{campo.nome.obrigatorio}")
     // observa configuração da annotation e verifica se propriedade está nula ou se é string vazia
     // valida nome que é campo obrigatório
     private String nome;
 
     @Column(name = "cpf", length = 11)
-    @NotEmpty(message = "Campo CPF é obrigatório.")
-    @CPF(message = "Informe um CPF válido.") // annotation pronta para validar CPF
+    @NotEmpty(message = "{campo.cpf.obrigatorio}")
+    @CPF(message = "{campo.cpf.invalido}") // annotation pronta para validar CPF
     private String cpf;
 
     @JsonIgnore
