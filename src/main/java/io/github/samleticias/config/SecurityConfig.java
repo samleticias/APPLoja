@@ -16,15 +16,6 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 public class SecurityConfig {
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests((authz) -> authz
-                        .anyRequest().authenticated()
-                )
-                .httpBasic(withDefaults());
-        return http.build();
-    }
-    @Bean
     public UserDetailsService userDetailsService() {
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
         manager.createUser(User.withUsername("fulano")
@@ -43,6 +34,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/produtos/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
+                .httpBasic(withDefaults())
                 .formLogin(withDefaults());
 
         return http.build();
