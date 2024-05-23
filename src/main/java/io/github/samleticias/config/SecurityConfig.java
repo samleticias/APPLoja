@@ -12,8 +12,6 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import static org.springframework.security.config.Customizer.withDefaults;
 
-
-// adicionar dependencias de security no pom.xml
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig {
@@ -27,17 +25,31 @@ public class SecurityConfig {
         return http.build();
     }
     @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
-
-    @Bean
     public UserDetailsService userDetailsService() {
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(User.withUsername("user")
-                .password(passwordEncoder().encode("1234"))
-                .roles("USER").build());
+        manager.createUser(User.withUsername("fulano")
+                .password(passwordEncoder().encode("123"))
+                .roles("USER", "ADMIN").build());
         return manager;
+    }
+    
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/api/clientes/**").hasAnyRole("ADMIN", "USER")
+                        .requestMatchers("/api/pedidos/**").hasAnyRole("ADMIN", "USER")
+                        .requestMatchers("/api/produtos/**").hasRole("ADMIN")
+                        .anyRequest().authenticated()
+                )
+                .formLogin(withDefaults());
+
+        return http.build();
+    }
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
     }
 
 }
