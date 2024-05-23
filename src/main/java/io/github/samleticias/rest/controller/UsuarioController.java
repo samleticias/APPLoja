@@ -4,11 +4,9 @@ import io.github.samleticias.domain.entity.Usuario;
 import io.github.samleticias.service.impl.UsuarioServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/usuarios")
@@ -18,6 +16,7 @@ public class UsuarioController {
     private final PasswordEncoder passwordEncoder;
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Usuario salvar(@RequestBody @Valid Usuario usuario){
         String senhaCriptografada = passwordEncoder.encode(usuario.getSenha());
         usuario.setSenha(senhaCriptografada);
