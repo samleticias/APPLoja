@@ -27,7 +27,7 @@ public class UsuarioController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Usuario salvar(@RequestBody @Valid Usuario usuario){
+    public Usuario salvar( @RequestBody @Valid Usuario usuario ){
         String senhaCriptografada = passwordEncoder.encode(usuario.getSenha());
         usuario.setSenha(senhaCriptografada);
         return usuarioService.salvar(usuario);
@@ -35,14 +35,14 @@ public class UsuarioController {
 
     @PostMapping("/auth")
     public TokenDTO autenticar(@RequestBody CredenciaisDTO credenciais){
-        try {
+        try{
             Usuario usuario = Usuario.builder()
                     .login(credenciais.getLogin())
                     .senha(credenciais.getSenha()).build();
             UserDetails usuarioAutenticado = usuarioService.autenticar(usuario);
             String token = jwtService.gerarToken(usuario);
             return new TokenDTO(usuario.getLogin(), token);
-        } catch (UsernameNotFoundException | SenhaInvalidaException e){
+        } catch (UsernameNotFoundException | SenhaInvalidaException e ){
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         }
     }
