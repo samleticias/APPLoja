@@ -1,5 +1,6 @@
-package io.github.samleticias;
+package io.github.samleticias.security.jwt;
 
+import io.github.samleticias.VendasApplication;
 import io.github.samleticias.domain.entity.Usuario;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -14,7 +15,6 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.HashMap;
 
 @Service
 public class JwtService {
@@ -62,7 +62,7 @@ public class JwtService {
     }
 
     public static void main(String[] args) {
-        ConfigurableApplicationContext contexto = SpringApplication.run(VendasApplication.class, args);
+        ConfigurableApplicationContext contexto = SpringApplication.run(VendasApplication.class);
         JwtService service = contexto.getBean(JwtService.class);
         Usuario usuario = Usuario.builder().login("fulano").build();
         String token = service.gerarToken(usuario);
